@@ -4,8 +4,9 @@
 (require '[clojure.java.io :as io]
          '[clojure.string :as str])
 
-(defn sum-2020? [a b]
-  (= 2020 (+ a b)))
+(defn sum-2020?
+  ([a b] (= 2020 (+ a b)))
+  ([a b c] (= 2020 (+ a b c))))
 
 (defn find-pair-sum-2020 [a others]
   (first (filter (fn [x] (sum-2020? a x)) others)))

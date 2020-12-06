@@ -11,9 +11,12 @@
 
 (deftest test-sum-2020?
   (is (sum-2020? 2019 1))
-  (is (not (sum-2020? 2019 2))))
+  (is (not (sum-2020? 2019 2)))
+  (is (sum-2020? 979 366 675))
+  (is (not (sum-2020? 1 2 3))))
 
-(deftest test-find-pair-sum-2020
+;; Part 1
+(deftest test-find-pairs-sum-2020
   (let [pair (find-pairs-sum-2020 (shuffle input))]
     (is (or (= '(299 1721) pair)
             (= '(1721 299) pair)))))
