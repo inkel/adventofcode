@@ -29,3 +29,32 @@
 (defn part1 []
   (let [pair (find-pairs-sum-2020 (input))]
     (apply * pair)))
+
+;; Part 2
+(defn find-triple-sum-2020
+  ([a b input]
+   (loop [c (first input)
+          input (rest input)]
+     (if (nil? c) ;(empty? input))
+       nil
+       (if (= 2020 (+ a b c))
+         (list a b c)
+         (recur (first input) (rest input))))))
+
+  ([a input]
+   (let [b (first input)
+         input (rest input)
+         abc (find-triple-sum-2020 a b input)]
+     (cond
+       (list? abc) abc
+       (not-empty input) (recur a input))))
+
+  ([input]
+   (let [abc (find-triple-sum-2020 (first input) (rest input))]
+     (cond
+       (list? abc) abc
+       (not-empty input) (recur (rest input))))))
+
+
+
+(defn part2 [] (apply * (find-triple-sum-2020 (input))))
