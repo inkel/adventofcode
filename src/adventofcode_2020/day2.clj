@@ -31,3 +31,18 @@
 
 (defn part1 []
   (count-valid-passwords (input)))
+
+;; Part 2
+(defn xor [x y]
+  (or
+   (and x (not y))
+   (and (not x) y)))
+
+(defn valid2? [s]
+  (let [[[min max] char password] (parse-report s)
+        a (get password (dec min))
+        b (get password (dec max))]
+    (xor (= char a) (= char b))))
+
+(defn part2 []
+  (count (filter valid2? (input))))

@@ -22,3 +22,14 @@
 
 (deftest test-count-valid-passwords
   (is (= 2 (count-valid-passwords input))))
+
+(deftest test-xor
+  (is (true? (xor true false)))
+  (is (true? (xor false true)))
+  (is (false? (xor false false)))
+  (is (false? (xor true true))))
+
+(deftest test-valid2?
+  (is (valid2? "1-3 a: abcde"))
+  (is (not (valid2? "1-3 b: cdefg")))
+  (is (not (valid2? "2-9 c: ccccccccc"))))
