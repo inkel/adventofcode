@@ -32,3 +32,19 @@
   (->> (input)
        (map seat-id)
        (apply max)))
+
+(defn missing-seat [ids]
+  (let [ids (sort ids)]
+    (loop [prev (first ids)
+           cur (second ids)
+           ids (drop 2 ids)]
+      (if (= 2 (- cur prev))
+        (dec cur)
+        (if (empty? ids)
+          nil
+          (recur cur (first ids) (rest ids)))))))
+
+(defn part2 []
+  (->> (input)
+       (map seat-id)
+       missing-seat))

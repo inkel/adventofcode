@@ -19,3 +19,11 @@
 (deftest test-seat-id
   (doseq [[boarding data] fixture]
     (is (= (:id data) (seat-id boarding)))))
+
+(deftest test-missing-seat
+  (let [fixture {4 [1 2 3 5 6]
+                 2 [1 3 4 5 6]
+                 5 [1 2 3 4 6]
+                 nil [1 2 3 4 5 6]}]
+    (doseq [[n seats] fixture]
+      (is (= n (missing-seat (shuffle seats)))))))
