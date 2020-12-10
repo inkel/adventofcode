@@ -30,3 +30,13 @@ b")
 
 (deftest test-sum-groups-answers
   (is (= 11 (sum-groups-answers (prepare-input input)))))
+
+(deftest test-count-group-answers-everyone
+  (is (= 3 (count-group-answers-everyone ["abc"])))
+  (is (= 0 (count-group-answers-everyone ["a" "b" "c"])))
+  (is (= 1 (count-group-answers-everyone ["ab" "ac"])))
+  (is (= 1 (count-group-answers-everyone ["a" "a" "a" "a"])))
+  (is (= 1 (count-group-answers-everyone ["b"]))))
+
+(deftest test-sum-group-answers-everyone
+  (is (= 6 (sum-group-answers-everyone input))))

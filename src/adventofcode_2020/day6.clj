@@ -28,3 +28,26 @@
   (->> (input)
        prepare-input
        sum-groups-answers))
+
+(defn count-group-answers-everyone [group]
+  (let [npeople (count group)]
+    (loop [acc {}
+           group group]
+      (let [answers (first group)]
+        (if (nil? answers)
+          (count (filter (fn [[k v]] (= v npeople)) acc))
+          (recur (reduce (fn [m x] (conj m [x (inc (get m x 0))])) acc answers)
+                 (rest group)))))))
+
+(defn sum-group-answers-everyone [input]
+  (letfn [(prepare-input [input]
+            (let [lines (s/split-lines input)]
+              (loop [acc [] lines lines]
+                (if (empty? lines)
+                  acc
+                  (recur (conj acc (take-while not-empty lines))
+                         (rest (drop-while not-empty lines)))))))]
+    (reduce + (map count-group-answers-everyone (prepare-input input)))))
+
+(defn part2 []
+  (sum-group-answers-everyone (input)))
