@@ -59,3 +59,26 @@ dotted black bags contain no other bags.")
          (can-contain-bag (parse-rules input) :dotted-black)))
 
   (is (empty? (can-contain-bag (parse-rules input) :light-red))))
+
+(deftest test-must-contain-n-bags
+  (is (= 0 (must-contain-n-bags (parse-rules input) :dotted-black)))
+  (is (= 0 (must-contain-n-bags (parse-rules input) :faded-blue)))
+
+  (is (= 1 (must-contain-n-bags {:foo { :bar 1 } :bar {} } :foo )))
+  (is (= 2 (must-contain-n-bags {:foo { :bar 1 :quux 1 } :bar {} :quux {} } :foo)))
+  (is (= 2 (must-contain-n-bags {:foo { :bar 1 } :bar { :quux 1 } :quux {} } :foo)))
+  (is (= 3 (must-contain-n-bags {:foo { :bar 1 } :bar { :quux 2 } :quux {} } :foo)))
+  (is (= 4 (must-contain-n-bags {:foo { :bar 2 } :bar { :quux 1 } :quux {} } :foo)))
+
+  (is (= 7 (must-contain-n-bags (parse-rules input) :dark-olive)))
+  (is (= 11 (must-contain-n-bags (parse-rules input) :vibrant-plum)))
+
+  (is (= 32 (must-contain-n-bags (parse-rules input) :shiny-gold)))
+
+  (is (= 126 (must-contain-n-bags (parse-rules "shiny gold bags contain 2 dark red bags.
+dark red bags contain 2 dark orange bags.
+dark orange bags contain 2 dark yellow bags.
+dark yellow bags contain 2 dark green bags.
+dark green bags contain 2 dark blue bags.
+dark blue bags contain 2 dark violet bags.
+dark violet bags contain no other bags.") :shiny-gold))))

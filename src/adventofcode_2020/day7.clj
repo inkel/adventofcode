@@ -51,3 +51,16 @@
 
 (defn part1 []
   (count (can-contain-bag (parse-rules input) :shiny-gold)))
+
+(defn must-contain-n-bags
+  ([rules bag]
+   (let [bags (get rules bag)]
+     (if (empty? bags)
+       0
+       (reduce + (for [[b n] bags] (must-contain-n-bags rules b n))))))
+
+  ([rules bag n]
+   (+ n (* n (must-contain-n-bags rules bag)))))
+
+(defn part2 []
+  (must-contain-n-bags (parse-rules input) :shiny-gold))
