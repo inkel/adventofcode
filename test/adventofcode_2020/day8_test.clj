@@ -26,3 +26,36 @@ acc +6")
 
 (deftest test-run
   (is (= 5 (run input))))
+
+(deftest test-exec
+  (let [code [["acc" 5 false]
+              ["nop" 0 false]
+              ["jmp" -1 false]]]
+
+    (is (= [0 2 [["acc" 5 false]
+                 ["nop" 0 true]
+                 ["jmp" -1 false]]]
+           (exec 0 1 code))
+
+    (is (= [5 1 [["acc" 5 false]
+                 ["nop" 0 false]
+                 ["jmp" -1 true]]]
+            (exec 7 2 code))
+
+    (is (= [5 1 [["acc" 5 false]
+                 ["nop" 0 false]
+                 ["jmp" -1 false]]]
+            (exec 0 0 code)))))))
+
+(deftest test-fix-brute-force
+  (is (= 8 (fix-brute-force input))))
+
+(deftest test-dry-run
+  (is (= '(false nil)
+         (dry-run "nop +0\nacc +1\njpm -1")))
+  (is (= '(true 1)
+         (dry-run "nop +0\nacc +1\njpm +1")))
+  (is (= '(false nil)
+         (dry-run "acc +1\nnop +2\njpm -2\nacc +1")))
+  (is (= '(true 2)
+         (dry-run "acc +1\njmp +2\njpm -2\nacc +1"))))
