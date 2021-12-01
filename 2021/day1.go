@@ -1,23 +1,26 @@
 package main
 
-import (
-	"strconv"
-	"strings"
-)
-
-func day1_1(input string) int {
+func day1_1(input []int) int {
 	i := 0
-	vs := strings.Split(strings.TrimSpace(input), "\n")
-	p, _ := strconv.Atoi(vs[0])
-
-	for _, v := range vs[1:] {
-		c, _ := strconv.Atoi(v)
-		if c > p {
+	p := input[0]
+	for _, v := range input[1:] {
+		if v > p {
 			i++
 		}
-		p = c
-
+		p = v
 	}
 
 	return i
+}
+
+func day1_2_windows(input []int) []int {
+	w := make([]int, 0)
+	for i := 0; i < len(input)-2; i++ {
+		w = append(w, input[i]+input[i+1]+input[i+2])
+	}
+	return w
+}
+
+func day1_2(input []int) int {
+	return day1_1(day1_2_windows(input))
 }
