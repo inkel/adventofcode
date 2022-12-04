@@ -20,6 +20,7 @@ func main() {
 	fn := map[string]dayFunc{
 		"1": day1,
 		"2": day2,
+		"3": day3,
 	}[d]
 
 	fmt.Print(d, "=>")
