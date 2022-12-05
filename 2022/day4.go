@@ -6,14 +6,9 @@ import (
 	"strings"
 )
 
-func day4_contained(s string) bool {
+func day4_eval(s string) (bool, bool) {
 	a, b, c, d := day4_parse_pairs(s)
-	return (c >= a && d <= b) || (a >= c && b <= d)
-}
-
-func day4_overlap(s string) bool {
-	a, b, c, d := day4_parse_pairs(s)
-	return b >= c && a <= d
+	return (c >= a && d <= b) || (a >= c && b <= d), b >= c && a <= d
 }
 
 func day4_parse_pairs(s string) (int, int, int, int) {
@@ -39,10 +34,11 @@ func day4_parse_pair(s string) (int, int) {
 func day4(in []string) (int, int) {
 	var p1, p2 int
 	for _, s := range in {
-		if day4_contained(s) {
+		c, o := day4_eval(s)
+		if c {
 			p1++
 		}
-		if day4_overlap(s) {
+		if o {
 			p2++
 		}
 	}

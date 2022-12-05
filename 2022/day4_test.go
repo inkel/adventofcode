@@ -14,11 +14,12 @@ func TestDay4(t *testing.T) {
 	}
 
 	for in, exp := range tests {
-		if got := day4_contained(in); got != exp.contained {
-			t.Errorf("pair %s contains %t, got %t", in, exp.contained, got)
+		c, o := day4_eval(in)
+		if c != exp.contained {
+			t.Errorf("pair %s contains %t, got %t", in, exp.contained, c)
 		}
-		if got := day4_overlap(in); got != exp.overlap {
-			t.Errorf("pair %s overlaps %t, got %t", in, exp.overlap, got)
+		if o != exp.overlap {
+			t.Errorf("pair %s overlaps %t, got %t", in, exp.overlap, o)
 		}
 	}
 
@@ -30,4 +31,13 @@ func TestDay4(t *testing.T) {
 	if exp := 4; p2 != exp {
 		t.Errorf("part1 expecting %d, got %d", exp, p2)
 	}
+}
+
+func BenchmarkDay4(b *testing.B) {
+	in, _ := read("4")
+	var p1, p2 int
+	for i := 0; i < b.N; i++ {
+		p1, p2 = day4(in)
+	}
+	P1, P2 = p1, p2
 }
