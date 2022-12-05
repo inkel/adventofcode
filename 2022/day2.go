@@ -29,8 +29,8 @@ func (r rps) String() string {
 
 const (
 	rock     rps = 'R'
-	paper        = 'P'
-	scissors     = 'S'
+	paper    rps = 'P'
+	scissors rps = 'S'
 )
 
 const (

@@ -12,14 +12,20 @@ func day3_priority(r rune) int {
 	return p
 }
 
+func day3_has(s string, r rune) bool {
+	for _, rr := range s {
+		if r == rr {
+			return true
+		}
+	}
+	return false
+}
+
 func day3_repeated(s string) (rune, int) {
-	s1 := make(map[rune]struct{})
 	m := len(s) / 2
 	var rr rune
-	for i, r := range s {
-		if i < m {
-			s1[r] = struct{}{}
-		} else if _, ok := s1[r]; ok {
+	for _, r := range s[:m] {
+		if day3_has(s[m:], r) {
 			rr = r
 			break
 		}
@@ -47,17 +53,8 @@ func day3_badge(in []string) rune {
 		panic(fmt.Sprintf("invalid length %d: %v", len(in), in))
 	}
 
-	is := make(map[rune]int, len(in[0]))
 	for _, r := range in[0] {
-		is[r] = 1
-	}
-	for _, r := range in[1] {
-		if _, ok := is[r]; ok {
-			is[r] = 2
-		}
-	}
-	for _, r := range in[2] {
-		if v, ok := is[r]; ok && v == 2 {
+		if day3_has(in[1], r) && day3_has(in[2], r) {
 			return r
 		}
 	}

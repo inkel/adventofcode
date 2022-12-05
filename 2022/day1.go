@@ -2,11 +2,18 @@ package main
 
 import (
 	"sort"
-	"strconv"
 )
 
+func atoi(s string) int {
+	var n int
+	for _, c := range s {
+		n = n*10 + int(c-'0')
+	}
+	return n
+}
+
 func day1(in []string) (int, int) {
-	var cals []int
+	var cals []int = make([]int, 0, 1000)
 	var cur int
 
 	for _, l := range in {
@@ -15,8 +22,7 @@ func day1(in []string) (int, int) {
 			cur = 0
 		}
 
-		c, _ := strconv.Atoi(l)
-		cur += c
+		cur += atoi(l)
 	}
 
 	sort.Ints(cals)

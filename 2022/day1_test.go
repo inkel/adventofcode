@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -30,5 +31,16 @@ func TestDay1(t *testing.T) {
 	_, got = day1(in)
 	if exp := 45000; got != exp {
 		t.Errorf("expecting %d, got %d", exp, got)
+	}
+}
+
+func TestAtoi(t *testing.T) {
+	tests := []string{"0", "1", "12", "123", "1234"}
+	for _, s := range tests {
+		exp, _ := strconv.Atoi(s)
+		got := atoi(s)
+		if exp != got {
+			t.Errorf("%q expecting %d, got %d", s, exp, got)
+		}
 	}
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"strconv"
-	"strings"
 )
 
 func day4_eval(s string) (bool, bool) {
@@ -11,22 +10,33 @@ func day4_eval(s string) (bool, bool) {
 	return (c >= a && d <= b) || (a >= c && b <= d), b >= c && a <= d
 }
 
+func split(s string, d rune) (string, string) {
+	var i int
+	for j, r := range s {
+		if r == d {
+			i = j
+			break
+		}
+	}
+	return s[:i], s[i+1:]
+}
+
 func day4_parse_pairs(s string) (int, int, int, int) {
-	ps := strings.Split(s, ",")
-	a, b := day4_parse_pair(ps[0])
-	c, d := day4_parse_pair(ps[1])
+	s1, s2 := split(s, ',')
+	a, b := day4_parse_pair(s1)
+	c, d := day4_parse_pair(s2)
 	return a, b, c, d
 }
 
 func day4_parse_pair(s string) (int, int) {
-	ps := strings.Split(s, "-")
-	a, err := strconv.Atoi(ps[0])
+	s1, s2 := split(s, '-')
+	a, err := strconv.Atoi(s1)
 	if err != nil {
-		panic(fmt.Sprintf("parsing %s: %v", ps[0], err))
+		panic(fmt.Sprintf("parsing %s: %v", s1, err))
 	}
-	b, err := strconv.Atoi(ps[1])
+	b, err := strconv.Atoi(s2)
 	if err != nil {
-		panic(fmt.Sprintf("parsing %s: %v", ps[0], err))
+		panic(fmt.Sprintf("parsing %s: %v", s2, err))
 	}
 	return a, b
 }
