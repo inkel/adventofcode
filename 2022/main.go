@@ -6,6 +6,13 @@ import (
 	"os"
 )
 
+var solutions = map[string]dayFunc{
+	"1": day1,
+	"2": day2,
+	"3": day3,
+	"4": day4,
+}
+
 type dayFunc func([]string) (int, int)
 
 func main() {
@@ -17,12 +24,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fn := map[string]dayFunc{
-		"1": day1,
-		"2": day2,
-		"3": day3,
-		"4": day4,
-	}[d]
+	fn := solutions[d]
 
 	fmt.Print(d, "=>")
 	fmt.Println(fn(in))

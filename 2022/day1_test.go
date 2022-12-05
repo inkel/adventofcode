@@ -32,14 +32,3 @@ func TestDay1(t *testing.T) {
 		t.Errorf("expecting %d, got %d", exp, got)
 	}
 }
-
-var P1, P2 int
-
-func BenchmarkDay1(b *testing.B) {
-	in, _ := read("1")
-	var p1, p2 int
-	for i := 0; i < b.N; i++ {
-		p1, p2 = day1(in)
-	}
-	P1, P2 = p1, p2
-}
